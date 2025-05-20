@@ -1,3 +1,6 @@
+import { AppSidebar } from "@/components/app-sidebar";
+import { BreadcrumbProvider, HeaderContent } from "@/components/header-content";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -27,7 +30,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <BreadcrumbProvider>
+              <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+                <HeaderContent />
+              </header>
+              {children}
+            </BreadcrumbProvider>
+          </SidebarInset>
+        </SidebarProvider>
       </body>
     </html>
   );
